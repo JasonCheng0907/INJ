@@ -6,9 +6,9 @@ import org.springframework.ui.Model;
 
 import com.example.INJ.model.Banner;
 
-public interface BannerDao {
+public interface BannerInf {
 	// 新增廣告
-	int addBanner(String sql, Banner banner);
+	void addBanner(Model model);
 
 	// 以網址刪除廣告
 	void delete(String link);
@@ -18,4 +18,5 @@ public interface BannerDao {
 
 	// 查詢廣告
 	List selectBanner(Model model);
+
 }

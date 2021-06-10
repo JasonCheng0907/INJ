@@ -8,7 +8,7 @@ import com.example.INJ.model.Banner;
 
 public interface BannerDao {
 	// 新增廣告
-	int addBanner(String sql, Banner banner);
+	void addBanner(Banner banner);
 
 	// 以網址刪除廣告
 	void delete(String link);

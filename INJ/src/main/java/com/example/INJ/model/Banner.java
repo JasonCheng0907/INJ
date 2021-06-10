@@ -1,7 +1,7 @@
 package com.example.INJ.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 import org.springframework.stereotype.Component;
 
@@ -19,16 +19,36 @@ public class Banner implements Serializable {
 	private String active;
 	private String approve;
 	private String target;
-	private Date start_time;
-	private Date end_time;
+	private Timestamp start_time;
+	private Timestamp end_time;
 	private String recommend;
 	private String creator;
-	private Date create_time;
+	private Timestamp create_time;
 	private String modifier;
-	private Date modify_time;
+	private Timestamp modify_time;
 
 	public Banner() {
 		super();
+	}
+
+	public Banner(String id, String name, String file_name, String link, String active, String approve, String target,
+			Timestamp start_time, Timestamp end_time, String recommend, String creator, Timestamp create_time,
+			String modifier, Timestamp modify_time) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.file_name = file_name;
+		this.link = link;
+		this.active = active;
+		this.approve = approve;
+		this.target = target;
+		this.start_time = start_time;
+		this.end_time = end_time;
+		this.recommend = recommend;
+		this.creator = creator;
+		this.create_time = create_time;
+		this.modifier = modifier;
+		this.modify_time = modify_time;
 	}
 
 	public String getId() {
@@ -87,19 +107,19 @@ public class Banner implements Serializable {
 		this.target = target;
 	}
 
-	public Date getStart_time() {
+	public Timestamp getStart_time() {
 		return start_time;
 	}
 
-	public void setStart_time(Date start_time) {
+	public void setStart_time(Timestamp start_time) {
 		this.start_time = start_time;
 	}
 
-	public Date getEnd_time() {
+	public Timestamp getEnd_time() {
 		return end_time;
 	}
 
-	public void setEnd_time(Date end_time) {
+	public void setEnd_time(Timestamp end_time) {
 		this.end_time = end_time;
 	}
 
@@ -119,11 +139,11 @@ public class Banner implements Serializable {
 		this.creator = creator;
 	}
 
-	public Date getCreate_time() {
+	public Timestamp getCreate_time() {
 		return create_time;
 	}
 
-	public void setCreate_time(Date create_time) {
+	public void setCreate_time(Timestamp create_time) {
 		this.create_time = create_time;
 	}
 
@@ -135,11 +155,11 @@ public class Banner implements Serializable {
 		this.modifier = modifier;
 	}
 
-	public Date getModify_time() {
+	public Timestamp getModify_time() {
 		return modify_time;
 	}
 
-	public void setModify_time(Date modify_time) {
+	public void setModify_time(Timestamp modify_time) {
 		this.modify_time = modify_time;
 	}
 

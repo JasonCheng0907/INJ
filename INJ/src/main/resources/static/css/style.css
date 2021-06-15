@@ -219,3 +219,15 @@ td.tLeft {
 	color: #CC0000;
 	text-decoration: none;
 }
+
+
+/*網址縮編*/
+.box {
+width: 300px;
+padding: 10px;
+}
+.ellipsis {
+overflow:hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+}

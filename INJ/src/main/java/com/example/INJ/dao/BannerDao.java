@@ -18,4 +18,7 @@ public interface BannerDao {
 
 	// 查詢廣告
 	List selectBanner(Model model);
+
+	// 以ID查詢資料
+	List findById(String id);
 }

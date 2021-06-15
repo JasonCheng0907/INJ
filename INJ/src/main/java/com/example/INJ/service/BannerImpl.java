@@ -51,8 +51,16 @@ public class BannerImpl implements BannerDao {
 
 	@Override
 	public void update(Banner banner) {
-		String sql = "update church.banner set name=?,file_name=?,link=?,active=?,start_time=?,end_time=? where id=?";
-		jdbcTemplate.update(sql, banner);
+		String sql = "update church.banner set name=?, link=?, file_name=?, active=?, start_time=?, end_time=? where id=?";
+		jdbcTemplate.update(sql, banner.getName(), banner.getLink(), banner.getFile_name(), banner.getActive(),
+				banner.getStart_time(), banner.getEnd_time(), banner.getId());
+	}
+
+	@Override
+	public List findById(String id) {
+		String sql = "SELECT * FROM church.banner where id=?";
+		List bannerList = jdbcTemplate.queryForList(sql, id);
+		return bannerList;
 	}
 
 }

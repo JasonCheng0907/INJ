@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.INJ.model.Banner;
 import com.example.INJ.service.BannerImpl;
@@ -42,23 +43,32 @@ public class BannerController {
 		model.addAttribute("banner", bannerList);
 		return "/admin/banner/bannerList";
 	}
+	/*
+	 * @GetMapping("/admin/banner/bannerEdit{bannerID}") public String
+	 * edit(@PathVariable String bannerID, Model model) { List bannerList =
+	 * bannerImpl.findById(bannerID); model.addAttribute("banner", bannerList);
+	 * return "/admin/banner/bannerEdit"; }
+	 */
 
 	@GetMapping("/admin/banner/bannerEdit{bannerID}")
-	public String edit(Model model) {
+	public String bannerEdit(Model model) {
 		List bannerList = bannerImpl.findById("123");
 		model.addAttribute("banner", bannerList);
 		return "/admin/banner/bannerEdit";
 	}
 
 	@PostMapping(value = "/admin/banner/edit")
-	public String bannerEdit(@RequestParam("id") String id, @RequestParam("name") String name,
+	@ResponseBody
+	public String edit(@RequestParam("id") String id, @RequestParam("name") String name,
 			@RequestParam("link") String link, @RequestParam("file_name") String file_name,
 			@RequestParam("start_time") Date start_time, @RequestParam("end_time") Date end_time,
 			@RequestParam("active") String active) {
 		Banner banner = new Banner();
+		String fn = shortUUID() + file_name;
 		Timestamp st = new Timestamp(start_time.getTime());
 		Timestamp et = new Timestamp(end_time.getTime());
-		String fn = shortUUID() + file_name;
+		String modifier = "mdbc";
+		Timestamp modify_time = new Timestamp(System.currentTimeMillis());
 		banner.setId(id);
 		banner.setName(name);
 		banner.setLink(link);
@@ -66,17 +76,19 @@ public class BannerController {
 		banner.setStart_time(st);
 		banner.setEnd_time(et);
 		banner.setActive(active);
+		banner.setModifier(modifier);
+		banner.setModify_time(modify_time);
 		bannerImpl.update(banner);
-		return "/admin/banner/bannerEdit";
+		return "編輯成功";
 	}
 
 	@RequestMapping("/admin/banner/bannerSave")
-	public String Save() {
+	public String bannerSave() {
 		return "/admin/banner/bannerSave";
 	}
 
 	@PostMapping(value = "/admin/banner/save")
-	public String bannerSave(@RequestParam("name") String name, @RequestParam("link") String link,
+	public String save(@RequestParam("name") String name, @RequestParam("link") String link,
 			@RequestParam("file_name") String file_name, @RequestParam("start_time") Date start_time,
 			@RequestParam("end_time") Date end_time, @RequestParam("active") String active) {
 
@@ -93,13 +105,30 @@ public class BannerController {
 		banner.setFile_name(fn);
 		banner.setLink(link);
 		banner.setActive(active);
+		banner.setApprove("2");
+		banner.setTarget("0");
 		banner.setStart_time(st);
 		banner.setEnd_time(et);
 		banner.setRecommend(recommend);
 		banner.setCreator(creator);
 		banner.setCreate_time(create_time);
+		banner.setModifier(creator);
+		banner.setModify_time(create_time);
 		bannerImpl.addBanner(banner);
 		return "/admin/banner/bannerList";
 	}
 
+	@GetMapping("/admin/banner/bannerDelete{bannerID}")
+	public String bannerDelete(Model model) {
+		List bannerList = bannerImpl.findById("123");
+		model.addAttribute("banner", bannerList);
+		return "/admin/banner/bannerDelete";
+	}
+
+	@PostMapping(value = "/admin/banner/delete")
+	@ResponseBody
+	public String delete(@RequestParam("id") String id) {
+		bannerImpl.delete(id);
+		return "刪除成功";
+	}
 }

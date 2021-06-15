@@ -301,7 +301,8 @@ function MM_swapImage() { //v3.0
 	                            <td align="center" th:unless="${b.active} eq 1" th:text="未上架"></td>
 	                            <td align="center" th:text="${#dates.format(b.start_time, 'yyyy-MM-dd')}"></td>
 	                            <td align="center" th:text="${#dates.format(b.end_time, 'yyyy-MM-dd')}"></td>
-	                            <td align="center"><a th:href=@{/admin/banner/bannerEdit(bannerID=${b.id})}>編輯</a> | <a href="#" onclick="del('${banner.id}'); return false;">刪除</a></td>
+	                            <td align="center"><a th:href=@{/admin/banner/bannerEdit(bannerID=${b.id})}>編輯</a> | 
+	                            <a th:href=@{/admin/banner/bannerDelete(bannerID=${b.id})}>刪除</a></td>
 	                       </tr>
                       </table></form>                      </tr>
                   </table></td>

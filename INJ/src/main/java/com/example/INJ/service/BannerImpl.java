@@ -26,8 +26,8 @@ public class BannerImpl implements BannerDao {
 	@Override
 	public void addBanner(Banner banner) {
 
-		String sql = "INSERT INTO church.banner (id, name, file_name, link, active, start_time, end_time, recommend, creator, create_time)"
-				+ " VALUES (?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO church.banner (id, name, file_name, link, active, approve, target, start_time, end_time, recommend, creator, "
+				+ "create_time, modifier, modify_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 		String id = banner.getId();
 		String name = banner.getName();
 		String file_name = banner.getFile_name();
@@ -38,22 +38,34 @@ public class BannerImpl implements BannerDao {
 		String recommend = banner.getRecommend();
 		String creator = banner.getCreator();
 		Timestamp create_time = banner.getCreate_time();
-		jdbcTemplate.update(sql, id, name, file_name, link, active, start_time, end_time, recommend, creator,
-				create_time);
+		String modifier = banner.getModifier();
+		Timestamp modify_time = banner.getModify_time();
+		String approve = banner.getApprove();
+		String target = banner.getTarget();
+		jdbcTemplate.update(sql, id, name, file_name, link, active, approve, target, start_time, end_time, recommend,
+				creator, create_time, modifier, modify_time);
 
 	}
 
 	@Override
-	public void delete(String link) {
-		String sql = "delete from church.banner where link = ?";
-		jdbcTemplate.update(sql, link);
+	public void delete(String id) {
+		String sql = "delete from church.banner where id = ?";
+		jdbcTemplate.update(sql, id);
 	}
 
 	@Override
 	public void update(Banner banner) {
-		String sql = "update church.banner set name=?, link=?, file_name=?, active=?, start_time=?, end_time=? where id=?";
-		jdbcTemplate.update(sql, banner.getName(), banner.getLink(), banner.getFile_name(), banner.getActive(),
-				banner.getStart_time(), banner.getEnd_time(), banner.getId());
+		String sql = "update church.banner set name=?, link=?, file_name=?, active=?, start_time=?, end_time=?, modifier=?, modify_time=? where id=?";
+		String id = banner.getId();
+		String name = banner.getName();
+		String file_name = banner.getFile_name();
+		String link = banner.getLink();
+		String active = banner.getActive();
+		Timestamp start_time = banner.getStart_time();
+		Timestamp end_time = banner.getEnd_time();
+		String modifier = banner.getModifier();
+		Timestamp modify_time = banner.getModify_time();
+		jdbcTemplate.update(sql, name, link, file_name, active, start_time, end_time, modifier, modify_time, id);
 	}
 
 	@Override

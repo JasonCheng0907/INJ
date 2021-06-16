@@ -27,7 +27,7 @@ public class BannerImpl implements BannerDao {
 	public void addBanner(Banner banner) {
 
 		String sql = "INSERT INTO church.banner (id, name, file_name, link, active, approve, target, start_time, end_time, recommend, creator, "
-				+ "create_time, modifier, modify_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "create_time, modifier, modify_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		String id = banner.getId();
 		String name = banner.getName();
 		String file_name = banner.getFile_name();

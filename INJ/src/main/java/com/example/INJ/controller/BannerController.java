@@ -52,7 +52,7 @@ public class BannerController {
 
 	@GetMapping("/admin/banner/bannerEdit{bannerID}")
 	public String bannerEdit(Model model) {
-		List bannerList = bannerImpl.findById("123");
+		List bannerList = bannerImpl.findById("1jenqw9idjlgh");
 		model.addAttribute("banner", bannerList);
 		return "/admin/banner/bannerEdit";
 	}
@@ -88,6 +88,7 @@ public class BannerController {
 	}
 
 	@PostMapping(value = "/admin/banner/save")
+	@ResponseBody
 	public String save(@RequestParam("name") String name, @RequestParam("link") String link,
 			@RequestParam("file_name") String file_name, @RequestParam("start_time") Date start_time,
 			@RequestParam("end_time") Date end_time, @RequestParam("active") String active) {
@@ -115,19 +116,12 @@ public class BannerController {
 		banner.setModifier(creator);
 		banner.setModify_time(create_time);
 		bannerImpl.addBanner(banner);
-		return "/admin/banner/bannerList";
+		return "新增成功";
 	}
 
-	@GetMapping("/admin/banner/bannerDelete{bannerID}")
-	public String bannerDelete(Model model) {
-		List bannerList = bannerImpl.findById("123");
-		model.addAttribute("banner", bannerList);
-		return "/admin/banner/bannerDelete";
-	}
-
-	@PostMapping(value = "/admin/banner/delete")
+	@GetMapping(value = "/deleteBanner")
 	@ResponseBody
-	public String delete(@RequestParam("id") String id) {
+	public String delete(@RequestParam(name = "bannerID") String id) {
 		bannerImpl.delete(id);
 		return "刪除成功";
 	}

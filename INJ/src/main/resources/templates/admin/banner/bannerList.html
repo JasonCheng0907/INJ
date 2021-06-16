@@ -278,16 +278,16 @@ function MM_swapImage() { //v3.0
                           &nbsp;
                           <span class="tLeft">
                           </span>
-                          <form action="/admin/banner/bannerSave">
+                          <form th:action="@{/deleteBanner}" method="post">
                           <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="disc_table">
                            <tr>
-                           <td><input name="add" type="submit" value="新增">
-                          
-                            <tr>
-                              <th width="8%">廣告編號</th>
-                              <th width="9%">廣告標題</th>
+                           	  <td><td><td><td><td><td>
+                           	  <td><a th:href=@{/admin/banner/bannerSave}><button type="button" style="width:70px;">新增廣告</button></a>
+                           <tr>
+                              <th width="9%">廣告編號</th>
+                              <th width="18%">廣告標題</th>
                               <th width="9%">是否推薦</th>
-                              <th width="12%">廣告狀態</th>
+                              <th width="9%">廣告狀態</th>
                               <th width="17%">上架日期</th>
                               <th width="17%">下架日期</th>
                               <th width="16%">管理模式</th>
@@ -301,8 +301,9 @@ function MM_swapImage() { //v3.0
 	                            <td align="center" th:unless="${b.active} eq 1" th:text="未上架"></td>
 	                            <td align="center" th:text="${#dates.format(b.start_time, 'yyyy-MM-dd')}"></td>
 	                            <td align="center" th:text="${#dates.format(b.end_time, 'yyyy-MM-dd')}"></td>
-	                            <td align="center"><a th:href=@{/admin/banner/bannerEdit(bannerID=${b.id})}>編輯</a> | 
-	                            <a th:href=@{/admin/banner/bannerDelete(bannerID=${b.id})}>刪除</a></td>
+	                            <td align="center"><a th:href=@{/admin/banner/bannerEdit(bannerID=${b.id})}>
+	                            <button type="button">編輯</button></a> | 
+	                            <a th:href="|@{/deleteBanner(bannerID=${b.id})}|"><button type="button">刪除</button></a></td>
 	                       </tr>
                       </table></form>                      </tr>
                   </table></td>

@@ -279,7 +279,7 @@ function MM_swapImage() { //v3.0
                       <tr>
                         <td><form action="edit" th:action="edit" method="post" th:each="b : ${banner}">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                          <tr><td><input name="id" type="hidden" id="bannerID" th:value="${param.bannerID}"></td>
+                          <tr><td><input name="id" type="hidden" th:value="${b.id}"></td>
                           <tr>
                             <td width="15%">廣告標題：</td>
                             <td width="85%"><input name="name" size="46px" type="text" th:value="${b.name}"></td>

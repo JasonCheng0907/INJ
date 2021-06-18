@@ -43,16 +43,10 @@ public class BannerController {
 		model.addAttribute("banner", bannerList);
 		return "/admin/banner/bannerList";
 	}
-	/*
-	 * @GetMapping("/admin/banner/bannerEdit{bannerID}") public String
-	 * edit(@PathVariable String bannerID, Model model) { List bannerList =
-	 * bannerImpl.findById(bannerID); model.addAttribute("banner", bannerList);
-	 * return "/admin/banner/bannerEdit"; }
-	 */
 
 	@GetMapping("/admin/banner/bannerEdit{bannerID}")
-	public String bannerEdit(Model model) {
-		List bannerList = bannerImpl.findById("1jenqw9idjlgh");
+	public String bannerEdit(@RequestParam(name = "bannerID") String id, Model model) {
+		List bannerList = bannerImpl.findById(id);
 		model.addAttribute("banner", bannerList);
 		return "/admin/banner/bannerEdit";
 	}

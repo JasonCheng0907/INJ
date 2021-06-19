@@ -1,11 +1,17 @@
 package com.example.INJ.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.INJ.model.Banner;
 import com.example.INJ.service.BannerImpl;
@@ -24,7 +31,7 @@ public class BannerController {
 	@Autowired
 	BannerImpl bannerImpl;
 
-	private static String UPLOADED_FOLDER = "C:/Users/Jason/eclipse-workspace/INJ/src/main/resources/static/images";
+	private static final Logger log = LoggerFactory.getLogger(BannerController.class);
 
 	public static String shortUUID() {
 		UUID uuid = UUID.randomUUID();
@@ -54,11 +61,11 @@ public class BannerController {
 	@PostMapping(value = "/admin/banner/edit")
 	@ResponseBody
 	public String edit(@RequestParam("id") String id, @RequestParam("name") String name,
-			@RequestParam("link") String link, @RequestParam("file_name") String file_name,
+			@RequestParam("link") String link, @RequestParam("file") MultipartFile file,
 			@RequestParam("start_time") Date start_time, @RequestParam("end_time") Date end_time,
-			@RequestParam("active") String active) {
+			@RequestParam("active") String active, HttpServletRequest request) throws RuntimeException {
 		Banner banner = new Banner();
-		String fn = shortUUID() + file_name;
+		String file_name = id + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 		Timestamp st = new Timestamp(start_time.getTime());
 		Timestamp et = new Timestamp(end_time.getTime());
 		String modifier = "mdbc";
@@ -66,12 +73,20 @@ public class BannerController {
 		banner.setId(id);
 		banner.setName(name);
 		banner.setLink(link);
-		banner.setFile_name(fn);
+		banner.setFile_name(file_name);
 		banner.setStart_time(st);
 		banner.setEnd_time(et);
 		banner.setActive(active);
 		banner.setModifier(modifier);
 		banner.setModify_time(modify_time);
+		try {
+			file.transferTo(new File(
+					"C:\\Users\\Jason\\eclipse-workspace\\INJ\\src\\main\\resources\\static\\images\\" + file_name));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		bannerImpl.update(banner);
 		return "編輯成功";
 	}
@@ -84,12 +99,13 @@ public class BannerController {
 	@PostMapping(value = "/admin/banner/save")
 	@ResponseBody
 	public String save(@RequestParam("name") String name, @RequestParam("link") String link,
-			@RequestParam("file_name") String file_name, @RequestParam("start_time") Date start_time,
-			@RequestParam("end_time") Date end_time, @RequestParam("active") String active) {
+			@RequestParam("file") MultipartFile file, @RequestParam("start_time") Date start_time,
+			@RequestParam("end_time") Date end_time, @RequestParam("active") String active, HttpServletRequest request)
+			throws RuntimeException {
 
 		Banner banner = new Banner();
 		String id = shortUUID();
-		String fn = id + file_name;
+		String file_name = id + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 		String recommend = "0";
 		String creator = "mdbc";
 		Timestamp create_time = new Timestamp(System.currentTimeMillis());
@@ -97,7 +113,7 @@ public class BannerController {
 		Timestamp et = new Timestamp(end_time.getTime());
 		banner.setId(id);
 		banner.setName(name);
-		banner.setFile_name(fn);
+		banner.setFile_name(file_name);
 		banner.setLink(link);
 		banner.setActive(active);
 		banner.setApprove("2");
@@ -109,6 +125,14 @@ public class BannerController {
 		banner.setCreate_time(create_time);
 		banner.setModifier(creator);
 		banner.setModify_time(create_time);
+		try {
+			file.transferTo(new File(
+					"C:\\Users\\Jason\\eclipse-workspace\\INJ\\src\\main\\resources\\static\\images\\" + file_name));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		bannerImpl.addBanner(banner);
 		return "新增成功";
 	}

@@ -277,7 +277,7 @@ function MM_swapImage() { //v3.0
                         <td>&nbsp;</td>
                       </tr>
                       <tr>
-                        <td><form action="edit" th:action="edit" method="post" th:each="b : ${banner}">
+                        <td><form action="edit" th:action="edit" method="post" th:each="b : ${banner}" enctype="multipart/form-data">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                           <tr><td><input name="id" type="hidden" th:value="${b.id}"></td>
                           <tr>
@@ -292,7 +292,8 @@ function MM_swapImage() { //v3.0
                           
                             <td><p>廣告圖檔：</p></td>
                             <td><p>(建議大小:160*120，限定BMP、JPG、PNG格式)</p>
-                              <input name="file_name" type="file" accept="image/BMP, image/jpeg, image/png" onchange="loadFile(event)">
+                              <img th:src="@{'/images/'+${b.file_name}}"/>
+                              <input name="file" type="file" accept="image/BMP, image/jpeg, image/png" onchange="loadFile(event)">
                               <img id="output" />
                               <script>
 								  var loadFile = function(event) {

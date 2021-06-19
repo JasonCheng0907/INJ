@@ -277,7 +277,7 @@ function MM_swapImage() { //v3.0
                         <td>&nbsp;</td>
                       </tr>
                       <tr>
-                        <td><form action="save" method="post">
+                        <td><form action="save" method="post" enctype="multipart/form-data">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                           <tr>
                             <td width="15%">廣告標題：</td>
@@ -290,7 +290,7 @@ function MM_swapImage() { //v3.0
                           <tr>
                             <td><p>廣告圖檔：</p></td>
                             <td><p>(建議大小:160*120，限定BMP、JPG、PNG格式)</p>
-                              <input name="file_name" type="file" accept="image/BMP, image/jpeg, image/png" onchange="loadFile(event)">
+                              <input name="file" type="file" accept="image/BMP, image/jpeg, image/png" onchange="loadFile(event)">
                               <img id="output" />
                               <script>
 								  var loadFile = function(event) {
@@ -325,9 +325,6 @@ function MM_swapImage() { //v3.0
                             <td colspan="2"><div align="center">
                               <span class="tLeft">
                               <input type="submit" name="save" value="儲存資料"/>
-                              </span>
-                              <span class="tLeft">
-                              <input type="submit" name="reset" value="清除重填"/>
                               </span></div></td>
                             </tr>
                         </table></form>

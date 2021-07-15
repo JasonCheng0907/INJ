@@ -5,6 +5,12 @@ import java.sql.Timestamp;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * 廣告
+ * 
+ * @author jason
+ */
+
 @Component
 public class Banner implements Serializable {
 

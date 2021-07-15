@@ -197,7 +197,12 @@ function MM_swapImage() { //v3.0
         <tr>
           <td width="5">&nbsp;</td>
           <td width="5"> ‧</td>
-          <td class="black12"><div align="left"><a href="news_1.1.htm">新聞管理</a></div></td>
+          <td class="black12"><div align="left"><a th:href=@{/admin/news/newsList}>資料來源管理</a></div></td>
+        </tr>
+        <tr>
+          <td width="5">&nbsp;</td>
+          <td width="5"> ‧</td>
+          <td class="black12"><div align="left"><a th:href=@{/admin/news/newsList}>新聞管理</a></div></td>
         </tr>
         
         
@@ -303,7 +308,7 @@ function MM_swapImage() { //v3.0
 	                            <td align="center" th:text="${#dates.format(b.end_time, 'yyyy-MM-dd')}"></td>
 	                            <td align="center"><a th:href=@{/admin/banner/bannerEdit(bannerID=${b.id})}>
 	                            <button type="button">編輯</button></a> | 
-	                            <a th:href="|@{/deleteBanner(bannerID=${b.id})}|"><button type="button">刪除</button></a></td>
+	                            <a th:href="|@{deleteBanner(bannerID=${b.id})}|"><button type="button">刪除</button></a></td>
 	                       </tr>
                       </table></form>                      </tr>
                   </table></td>

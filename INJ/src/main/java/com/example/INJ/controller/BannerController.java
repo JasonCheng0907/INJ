@@ -10,8 +10,6 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,13 +23,17 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.INJ.model.Banner;
 import com.example.INJ.service.BannerImpl;
 
+/**
+ * 廣告控制器
+ * 
+ * @author jason
+ */
 @Controller
+@RequestMapping("/admin/banner")
 public class BannerController {
 
 	@Autowired
 	BannerImpl bannerImpl;
-
-	private static final Logger log = LoggerFactory.getLogger(BannerController.class);
 
 	public static String shortUUID() {
 		UUID uuid = UUID.randomUUID();
@@ -44,26 +46,26 @@ public class BannerController {
 		return "index";
 	}
 
-	@RequestMapping("/admin/banner/bannerList")
-	public String getBanner(Model model) {
+	@RequestMapping("bannerList")
+	public String getBanner(Model model) throws Exception {
 		List bannerList = bannerImpl.selectBanner(model);
 		model.addAttribute("banner", bannerList);
 		return "/admin/banner/bannerList";
 	}
 
-	@GetMapping("/admin/banner/bannerEdit{bannerID}")
-	public String bannerEdit(@RequestParam(name = "bannerID") String id, Model model) {
+	@GetMapping("bannerEdit{bannerID}")
+	public String bannerEdit(@RequestParam(name = "bannerID") String id, Model model) throws Exception {
 		List bannerList = bannerImpl.findById(id);
 		model.addAttribute("banner", bannerList);
 		return "/admin/banner/bannerEdit";
 	}
 
-	@PostMapping(value = "/admin/banner/edit")
+	@PostMapping(value = "edit")
 	@ResponseBody
 	public String edit(@RequestParam("id") String id, @RequestParam("name") String name,
 			@RequestParam("link") String link, @RequestParam("file") MultipartFile file,
 			@RequestParam("start_time") Date start_time, @RequestParam("end_time") Date end_time,
-			@RequestParam("active") String active, HttpServletRequest request) throws RuntimeException {
+			@RequestParam("active") String active, HttpServletRequest request) throws Exception {
 		Banner banner = new Banner();
 		String file_name = id + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 		Timestamp st = new Timestamp(start_time.getTime());
@@ -91,17 +93,17 @@ public class BannerController {
 		return "編輯成功";
 	}
 
-	@RequestMapping("/admin/banner/bannerSave")
+	@RequestMapping("bannerSave")
 	public String bannerSave() {
 		return "/admin/banner/bannerSave";
 	}
 
-	@PostMapping(value = "/admin/banner/save")
+	@PostMapping(value = "save")
 	@ResponseBody
 	public String save(@RequestParam("name") String name, @RequestParam("link") String link,
 			@RequestParam("file") MultipartFile file, @RequestParam("start_time") Date start_time,
 			@RequestParam("end_time") Date end_time, @RequestParam("active") String active, HttpServletRequest request)
-			throws RuntimeException {
+			throws Exception {
 
 		Banner banner = new Banner();
 		String id = shortUUID();
@@ -137,9 +139,9 @@ public class BannerController {
 		return "新增成功";
 	}
 
-	@GetMapping(value = "/deleteBanner")
+	@GetMapping(value = "deleteBanner")
 	@ResponseBody
-	public String delete(@RequestParam(name = "bannerID") String id) {
+	public String delete(@RequestParam(name = "bannerID") String id) throws Exception {
 		bannerImpl.delete(id);
 		return "刪除成功";
 	}

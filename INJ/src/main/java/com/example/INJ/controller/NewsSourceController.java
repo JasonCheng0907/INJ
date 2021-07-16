@@ -10,18 +10,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.INJ.service.NewsImpl;
+import com.example.INJ.service.NewsSourceImpl;
 
 /**
  * @author jason
- * @version 建立時間:2021年7月14日 下午1:49:55
+ * @version 建立時間:2021年7月16日 下午3:53:46
  */
+
 @Controller
-@RequestMapping("/admin/news")
-public class NewsController {
+@RequestMapping("/admin/newsSource")
+public class NewsSourceController {
 
 	@Autowired
-	NewsImpl newsImpl;
+	NewsSourceImpl newsSourceImpl;
 
 	public static String shortUUID() {
 		UUID uuid = UUID.randomUUID();
@@ -35,24 +36,24 @@ public class NewsController {
 	}
 
 	@RequestMapping("list")
-	public String getNewsList() throws Exception {
-		return "/admin/news/list";
+	public String List() throws Exception {
+		return "/admin/newsSource/list";
 	}
 
 	@RequestMapping("edit")
-	public String getNewsEdit() throws Exception {
-		return "/admin/news/edit";
+	public String Edit() throws Exception {
+		return "/admin/newsSource/edit";
 	}
 
 	@RequestMapping("save")
-	public String getNewsSave() throws Exception {
-		return "/admin/news/save";
+	public String Save() throws Exception {
+		return "/admin/newsSource/save";
 	}
 
-	@GetMapping(value = "deleteNews")
+	@GetMapping(value = "deleteNewsSource")
 	@ResponseBody
-	public String delete(@RequestParam(name = "newsID") String id) throws Exception {
-		newsImpl.delete(id);
+	public String delete(@RequestParam(name = "newsSourceID") String id) throws Exception {
+		newsSourceImpl.delete(id);
 		return "刪除成功";
 	}
 }

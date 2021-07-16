@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.example.INJ.dao.NewsSourceDao;
 import com.example.INJ.model.NewsSource;
 
+@Service
 public class NewsSourceImpl implements NewsSourceDao {
 
 	@Autowired

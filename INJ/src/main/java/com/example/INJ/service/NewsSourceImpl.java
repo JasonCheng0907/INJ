@@ -52,4 +52,11 @@ public class NewsSourceImpl implements NewsSourceDao {
 		return newsSourceList;
 	}
 
+	@Override
+	public List findById(String id) {
+		String sql = "SELECT * FROM church.news_source where id=?";
+		List newsSourceList = jdbcTemplate.queryForList(sql, id);
+		return newsSourceList;
+	}
+
 }

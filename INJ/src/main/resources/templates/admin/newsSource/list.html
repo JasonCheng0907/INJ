@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>INJ新聞管理系統</title>
+<title>INJ新聞來源管理系統</title>
 <link href="/css/style.css" rel="stylesheet" type="text/css">
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -298,37 +298,27 @@ function MM_swapImage() { //v3.0
                             </tr>
                           </table>
                           <p><span class="tLeft">
-                            <input name="Submit31922" type="submit" onClick="MM_goToURL('parent','save');return document.MM_returnValue" value="新增">
-                        </span></p></td>
-                      </tr>
-                      <tr>
-                        <td><table width="94%" border="0" align="center" cellpadding="0" cellspacing="1" class="disc_table">
-                          <tr>
-                            <th width="8%">編號</th>
-                            <th width="11%">資料來源</th>
-                            <th width="10%">狀態</th>
-                            <th width="19%">管理模式</th>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>國度復興報</td>
-                            <td>啟用</td>
-                            <td><a href="edit">編輯</a> I 刪除</td>
-                          </tr>
-                          <tr class="altrow">
-                            <td>2</td>
-                            <td>醒報</td>
-                            <td>啟用</td>
-                            <td><a href="edit">編輯</a> I 刪除</td>
-                          </tr>
-                          <tr class="altrow">
-                            <td>3</td>
-                            <td>論壇報</td>
-                            <td>啟用</td>
-                            <td><a href="edit">編輯</a> I 刪除</td>
-                          </tr>
-                        </table></td>
-                      </tr>
+                          </span>
+                          <form th:action="@{/deleteNewsSource}" method="post">
+                          <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="disc_table">
+                           <tr>
+                           	  <td><a th:href=@{/admin/newsSource/save}><button type="button" style="width:45px;">新增</button></a>
+                           <tr>
+                              <th width="8%">編號</th>
+                              <th width="11%">資料來源</th>
+                              <th width="10%">狀態</th>
+                              <th width="19%">管理模式</th>
+                            </tr>
+                            <tr class="altrow" th:each="n,stat : ${newsSource}"><!-- 其中b是個臨時變數，像for(User u : userList)那樣中的u-->
+                           		<td align="center" th:text="${stat.count}"></td>
+								<td align="center" style="word-break:break-all" th:text="${n.name}"></td>
+	                            <td align="center" th:if="${n.active} eq 1" th:text="啟用"></td>
+	                            <td align="center" th:unless="${n.active} eq 1" th:text="停用"></td>
+	                            <td align="center"><a th:href=@{/admin/newsSource/edit(newsSourceID=${n.id})}>
+	                            <button type="button">編輯</button></a> | 
+	                            <a th:href="|@{deleteNewsSource(newsSourceID=${n.id})}|"><button type="button">刪除</button></a></td>
+	                       </tr>
+                      </table></form>                      </tr>
                   </table></td>
                   <td background="/images/07.gif">&nbsp;</td>
                 </tr>

@@ -25,4 +25,6 @@ public interface NewsSourceDao {
 	// 查詢全部新聞來源
 	List select(Model model) throws Exception;
 
+	// 以id查詢資料
+	List findById(String id) throws Exception;
 }

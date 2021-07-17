@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>INJ新聞管理系統</title>
+<title>INJ新聞來源管理系統</title>
 <link href="/css/style.css" rel="stylesheet" type="text/css">
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -274,49 +274,58 @@ function MM_swapImage() { //v3.0
                 </tr>
                 <tr>
                   <td background="/images/03.gif">&nbsp;</td>
-                  <td><table width="100%" border="0" align="center" cellpadding="5" cellspacing="0">
+                  <td><form  th:action="@{edit}" method="post" th:each="n : ${newsSource}" enctype="multipart/form-data">
+                  <table width="100%" border="0" align="center" cellpadding="5" cellspacing="0">
                       <tr>
-                        <td><div align="left" class="black12">INJ網站管理介面&gt;新聞&gt;新增資料來源</div></td>
+                        <td><div align="left" class="black12">INJ網站管理介面&gt;新聞&gt;修改資料來源</div></td>
                       </tr>
                       <tr>
                         <td>
                           <p class="tRight">&nbsp;                          </p>
                           <table width="69%" border="0" cellspacing="0" cellpadding="0">
+                          <tr><td><input name="id" type="hidden" th:value="${n.id}"></td>
                             <tr>
                               <td width="18%">資料來源</td>
-                              <td width="82%"><INPUT name=MD_TITLE style="WIDTH: 95%" maxLength=60></td>
+                              <td width="82%"><INPUT name="name" style="WIDTH: 95%" maxLength=60 th:value="${n.name}"></td>
                             </tr>
                             <tr>
-                              <td><p>banner上傳<br>
+                              <td><p>廣告圖檔上傳<br>
                               </p></td>
-                              <td><p>
-                                  <input name="Input6" type="text">
-                                  <input type="submit" name="Submit2" value="瀏覽">
-                              </p>
-                              <p>(建議大小:<span class="style2">100*50</span>，限定BMP、JPG、PNG格式)</p></td>
+                              <td><img th:src="@{'/images/'+${n.file_name}}"/>
+                              <input name="file" type="file" accept="image/BMP, image/jpeg, image/png" onchange="loadFile(event)">
+                              <img id="output" />
+                              <script>
+								  var loadFile = function(event) {
+								      var output = document.getElementById('output');
+								      output.src = URL.createObjectURL(event.target.files[0]);
+								      output.onload = function() {
+								      URL.revokeObjectURL(output.src) // free memory
+								    }
+								  };
+								</script>
+                              </td>
                             </tr>
                             <tr>
                               <td>狀態</td>
                               <td> <span class="style1">
-                                <INPUT type=radio CHECKED value=0 name=MD_STATUS>
-                              </span>開啟<span class="style1">
-                              <INPUT type=radio 
-      value=1 name=MD_STATUS>
-                              隱藏
+                                <p style="color:#0b59a8;" th:if="${n.active} eq 1" th:text="現在狀態為啟用中"></p>
+                                <p style="color:#0b59a8;" th:unless="${n.active} eq 1" th:text="現在狀態為停用中"></p>
+                                <input name="active" type="radio" value="1">啟用
+                                <input name="active" type="radio" value="0">停用
                               </span></td>
                             </tr>
 
                             <tr>
                               <td colspan="2">
                                 <div align="center"><span class="tLeft">
-                                  <input name="Submit31922" type="submit" onClick="MM_goToURL('parent','news_1.1.htm');return document.MM_returnValue" value="送出">
-                              </span></div></td>
+                                  <input type="submit" name="save" value="儲存資料"/>
+                                  </span></div></td>
                             </tr>
                           </table>
                           <p class="tRight">&nbsp;</p>
                           <div class="line"></div>
                           </tr>
-                    </table></td>
+                    </table></form></td>
                   <td background="/images/07.gif">&nbsp;</td>
                 </tr>
                 <tr>

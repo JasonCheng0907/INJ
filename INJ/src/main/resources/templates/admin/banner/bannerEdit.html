@@ -282,7 +282,7 @@ function MM_swapImage() { //v3.0
                         <td>&nbsp;</td>
                       </tr>
                       <tr>
-                        <td><form  th:action="@{edit}" method="post" th:each="b : ${banner}" enctype="multipart/form-data">
+                        <td><form th:action="@{edit}" method="post" th:each="b : ${banner}" enctype="multipart/form-data">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                           <tr><td><input name="id" type="hidden" th:value="${b.id}"></td>
                           <tr>

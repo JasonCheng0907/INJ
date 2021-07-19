@@ -127,4 +127,17 @@ public class NewsSourceController {
 		newsSourceImpl.delete(id);
 		return "刪除成功";
 	}
+
+	@PostMapping(value = "search")
+	public String search(@RequestParam(name = "keywords") String keywords, @RequestParam(name = "active") String active,
+			Model model) throws Exception {
+		if (active == "1" || active == "0") {
+			List n1 = newsSourceImpl.findByKeywords(keywords, active);
+			model.addAttribute("newsSource", n1);
+		} else {
+			List n2 = newsSourceImpl.findByKeywords(keywords);
+			model.addAttribute("newsSource", n2);
+		}
+		return "/admin/newsSource/list";
+	}
 }

@@ -59,4 +59,19 @@ public class NewsSourceImpl implements NewsSourceDao {
 		return newsSourceList;
 	}
 
+	@Override
+	public List findByKeywords(String keywords, String active) throws Exception {
+		String sql = "SELECT * FROM church.news_source where (name LIKE ?) OR (active=?)";
+		String kw = "%" + keywords + "%";
+		List newsSourceList = jdbcTemplate.queryForList(sql, kw, active);
+		return newsSourceList;
+	}
+
+	public List findByKeywords(String keywords) throws Exception {
+		String sql = "SELECT * FROM church.news_source where name LIKE ?";
+		String kw = "%" + keywords + "%";
+		List newsSourceList = jdbcTemplate.queryForList(sql, kw);
+		return newsSourceList;
+	}
+
 }

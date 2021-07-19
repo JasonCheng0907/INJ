@@ -280,29 +280,31 @@ function MM_swapImage() { //v3.0
                       </tr>
                       <tr>
                         <td><p>&nbsp;</p>
+                        <form th:action="@{search}" method="post">
                           <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                               <td width="10%">關鍵字</td>
-                              <td width="19%"><input name="Input" type="text"></td>
+                              <td width="19%"><input required name="keywords" type="text"></td>
                               <td width="71%">&nbsp;</td>
                             </tr>
                             <tr>
                               <td>狀態</td>
-                              <td><select name="select">
-                                <option>全部</option>
-                                <option>開啟</option>
-                                <option>關閉</option>
-                                                            </select></td>
-                              <td><input type="submit" name="Submit2" value="搜尋">
-                                <input type="submit" name="Submit3" value="清除"></td>
+                              <td><select name="active">
+                                <option value="2">全部</option>
+                                <option value="1">啟用</option>
+                                <option value="0">停用</option>
+                              </select></td>
+                              <td>
+                              <input type="submit" name="submit" value="搜尋" style="width:45px;height:24px;font-size:13px;">
+                              <input type="reset" value="清除" style="width:45px;height:24px;font-size:13px;">
+                              </td>
                             </tr>
-                          </table>
+                          </table></form>
                           <p><span class="tLeft">
                           </span>
                           <form th:action="@{/deleteNewsSource}" method="post">
                           <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="disc_table">
-                           <tr>
-                           	  <td><a th:href=@{/admin/newsSource/save}><button type="button" style="width:45px;">新增</button></a>
+                           <a th:href=@{/admin/newsSource/save}><button type="button" style="width:45px;">新增</button></a>
                            <tr>
                               <th width="8%">編號</th>
                               <th width="11%">資料來源</th>

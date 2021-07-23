@@ -280,6 +280,7 @@ function MM_swapImage() { //v3.0
                       </tr>
                       <tr>
                         <td><p>&nbsp;</p>
+                          <form th:action="@{search}" method="post">
                           <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                               <td width="10%">標題 </td>
@@ -289,65 +290,64 @@ function MM_swapImage() { //v3.0
                             <tr>
                               <td>資料來源</td>
                               <td><select name="select">
-                                <option>醒報</option>
-                                                            </select></td>
+                                <option selected>全部</option>
+                                <option value="12806188bf90000007ec">醒報</option>
+                                <option value="127091ffe8e00000119a">國度復興報</option>
+                                <option value="127092024760000024f4">論壇e報</option>
+                              </select></td>
                               <td>&nbsp;</td>
                             </tr>
                             <tr>
                               <td>新聞分類</td>
                               <td><select name="select2">
                                 <option selected>全部</option>
-                                <option>新聞報導</option>
-                                <option>活動</option>
-                                                            </select></td>
+                                <option value="12722235646000008b3e">新聞報導</option>
+                                <option value="12722237f4a000009564">熱門活動</option>
+                              </select></td>
                               <td>&nbsp;</td>
                             </tr>
                             <tr>
                               <td>日期</td>
-                              <td><input name="Input3" type="text">
+                              <td><input name="start_time" type="text">
                                 ~
-                              <input name="Input4" type="text"></td>
-                              <td><input type="submit" name="Submit2" value="搜尋">
-                                <input type="submit" name="Submit3" value="清除"></td>
+                              <input name="end_time" type="text"></td>
+                              <td>
+                              <input type="submit" name="submit" value="搜尋" style="width:45px;height:24px;font-size:13px;">
+                              <input type="reset" value="清除" style="width:45px;height:24px;font-size:13px;">
+                              </td>
                             </tr>
-                          </table>
-                          <p><span class="tLeft">
-                            <input name="Submit31922" type="submit" onClick="MM_goToURL('parent','save');return document.MM_returnValue" value="新增">
-                        </span></p></td>
+                          </table></form>
+                          </td>
                       </tr>
                       <tr>
-                        <td><table width="94%" border="0" align="center" cellpadding="0" cellspacing="1" class="disc_table">
-                          <tr>
-                            <th width="8%">編號</th>
-                            <th width="15%">標題</th>
-                            <th width="11%">新聞分類</th>
-                            <th width="11%">資料來源</th>
-                            <th width="10%">頭條</th>
-                            <th width="10%">狀態</th>
-                            <th width="16%">日期</th>
-                            <th width="19%">管理模式</th>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>是</td>
-                            <td>啟用</td>
-                            <td>2010-01-08</td>
-                            <td><a href="news_2.2.htm">編輯</a> I 刪除</td>
-                          </tr>
-                          <tr class="altrow">
-                            <td><a href="#">2</a></td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td><a href="news_2.2.htm">編輯</a> I 刪除</td>
-                          </tr>
-                        </table></td>
+                        <td><form th:action="@{/deleteNews}" method="post">
+                          <table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" class="disc_table">
+                           <a th:href=@{/admin/news/save}><button type="button" style="width:45px;">新增</button></a>
+                           <tr>
+                           		<th width="5%">編號</th>
+                            	<th width="30%">標題</th>
+                            	<th width="8%">新聞分類</th>
+                            	<th width="10%">資料來源</th>
+                            	<th width="5%">頭條</th>
+                            	<th width="5%">狀態</th>
+                            	<th width="12%">日期</th>
+                            	<th width="15%">管理模式</th>
+                            </tr>
+                            <tr class="altrow" th:each="n,stat : ${news}"><!-- 其中b是個臨時變數，像for(User u : userList)那樣中的u-->
+                           		<td align="center" th:text="${stat.count}"></td>
+								<td align="center" style="word-break:break-all" th:text="${n.title}"></td>
+								<td align="center" style="word-break:break-all" th:text="${n.category_name}"></td>
+								<td align="center" style="word-break:break-all" th:text="${n.news_source_name}"></td>
+								<td align="center" th:if="${n.headline} eq 1" th:text="是"></td>
+	                            <td align="center" th:unless="${n.headline} eq 1" th:text="否"></td>
+	                            <td align="center" th:if="${n.active} eq 1" th:text="啟用"></td>
+	                            <td align="center" th:unless="${n.active} eq 1" th:text="停用"></td>
+	                            <td align="center" th:text="${#dates.format(n.report_time, 'yyyy-MM-dd')}"></td>
+	                            <td align="center"><a th:href=@{/admin/news/edit(newsID=${n.id})}>
+	                            <button type="button">編輯</button></a> | 
+	                            <a th:href="|@{deleteNews(newsID=${n.id})}|"><button type="button">刪除</button></a></td>
+	                       </tr>
+                      </table></form></td>
                       </tr>
                   </table></td>
                   <td background="/images/07.gif">&nbsp;</td>

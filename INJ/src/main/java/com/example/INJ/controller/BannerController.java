@@ -67,6 +67,7 @@ public class BannerController {
 			@RequestParam("start_time") Date start_time, @RequestParam("end_time") Date end_time,
 			@RequestParam("active") String active, HttpServletRequest request) throws Exception {
 		Banner banner = new Banner();
+		String url = "C:\\Users\\Jason\\eclipse-workspace\\INJ\\src\\main\\resources\\static\\images\\";
 		String file_name = id + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 		Timestamp st = new Timestamp(start_time.getTime());
 		Timestamp et = new Timestamp(end_time.getTime());
@@ -82,8 +83,7 @@ public class BannerController {
 		banner.setModifier(modifier);
 		banner.setModify_time(modify_time);
 		try {
-			file.transferTo(new File(
-					"C:\\Users\\Jason\\eclipse-workspace\\INJ\\src\\main\\resources\\static\\images\\" + file_name));
+			file.transferTo(new File(url + file_name));
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

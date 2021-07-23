@@ -19,7 +19,7 @@ public class NewsImpl implements NewsDao {
 
 	@Override
 	public void add(News news) throws Exception {
-		String sql = "INSERT INTO church.news (id, category_id, title, content, reporter, city, report_time, "
+		String sql = "INSERT INTO news (id, category_id, title, content, reporter, city, report_time, "
 				+ "news_source, headline, file_name, active, start_time, end_time, forever, creator, "
 				+ "create_time, modifier, modify_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -37,13 +37,13 @@ public class NewsImpl implements NewsDao {
 
 	@Override
 	public void delete(String id) throws Exception {
-		String sql = "delete from church.news where id = ?";
+		String sql = "delete from news where id = ?";
 		jdbcTemplate.update(sql, id);
 	}
 
 	@Override
 	public void update(News news) throws Exception {
-		String sql = "update church.news set category_id=?, title=?, content=?, reporter=?, city=?, report_time=?, "
+		String sql = "update news set category_id=?, title=?, content=?, reporter=?, city=?, report_time=?, "
 				+ "news_source=?, headline=?, file_name=?, active=?, start_time=?, end_time=?, forever=?, modifier=?, "
 				+ "modify_time=? where id=?";
 
@@ -60,14 +60,15 @@ public class NewsImpl implements NewsDao {
 
 	@Override
 	public List select(Model model) throws Exception {
-		String sql = "SELECT * FROM church.news";
+		String sql = "SELECT news.*,category.name AS category_name,news_source.name AS news_source_name FROM news INNER JOIN "
+				+ "category ON news.category_id = category.id INNER JOIN news_source ON news.news_source = news_source.id";
 		List newsList = jdbcTemplate.queryForList(sql);
 		return newsList;
 	}
 
 	@Override
 	public List findById(String id) throws Exception {
-		String sql = "SELECT * FROM church.news where id=?";
+		String sql = "SELECT * FROM news where id=?";
 		List newsList = jdbcTemplate.queryForList(sql, id);
 		return newsList;
 	}

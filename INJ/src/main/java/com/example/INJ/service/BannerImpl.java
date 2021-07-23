@@ -23,7 +23,7 @@ public class BannerImpl implements BannerDao {
 
 	@Override
 	public List selectBanner(Model model) throws Exception {
-		String sql = "SELECT * FROM church.banner";
+		String sql = "SELECT * FROM banner";
 		List bannerList = jdbcTemplate.queryForList(sql);
 		return bannerList;
 	}
@@ -31,7 +31,7 @@ public class BannerImpl implements BannerDao {
 	@Override
 	public void addBanner(Banner banner) throws Exception {
 
-		String sql = "INSERT INTO church.banner (id, name, file_name, link, active, approve, target, start_time, end_time, recommend, creator, "
+		String sql = "INSERT INTO banner (id, name, file_name, link, active, approve, target, start_time, end_time, recommend, creator, "
 				+ "create_time, modifier, modify_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 		String id = banner.getId();
@@ -55,13 +55,13 @@ public class BannerImpl implements BannerDao {
 
 	@Override
 	public void delete(String id) throws Exception {
-		String sql = "delete from church.banner where id = ?";
+		String sql = "delete from banner where id = ?";
 		jdbcTemplate.update(sql, id);
 	}
 
 	@Override
 	public void update(Banner banner) throws Exception {
-		String sql = "update church.banner set name=?, link=?, file_name=?, active=?, start_time=?, end_time=?, "
+		String sql = "update banner set name=?, link=?, file_name=?, active=?, start_time=?, end_time=?, "
 				+ "modifier=?, modify_time=? where id=?";
 		String id = banner.getId();
 		String name = banner.getName();
@@ -77,7 +77,7 @@ public class BannerImpl implements BannerDao {
 
 	@Override
 	public List findById(String id) throws Exception {
-		String sql = "SELECT * FROM church.banner where id=?";
+		String sql = "SELECT * FROM banner where id=?";
 		List bannerList = jdbcTemplate.queryForList(sql, id);
 		return bannerList;
 	}

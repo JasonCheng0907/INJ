@@ -65,9 +65,18 @@ public class NewsSourceController {
 			@RequestParam("file") MultipartFile file, @RequestParam("active") String active, HttpServletRequest request)
 			throws Exception {
 		NewsSource newsSource = new NewsSource();
-		String file_name = id + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+		String url = "C:\\Users\\Jason\\eclipse-workspace\\INJ\\src\\main\\resources\\static\\images\\";
+		String file_name = null;
 		String modifier = "mdbc";
 		Timestamp modify_time = new Timestamp(System.currentTimeMillis());
+		file_name = id + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+		/*
+		 * if (file.isEmpty()) { List<NewsSource> newsSourceList =
+		 * newsSourceImpl.findById(id); for (NewsSource ns : newsSourceList) { file_name
+		 * = ns.getFile_name(); } } else { file_name = id +
+		 * file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(
+		 * ".")); }
+		 */
 		newsSource.setId(id);
 		newsSource.setName(name);
 		newsSource.setFile_name(file_name);
@@ -75,8 +84,7 @@ public class NewsSourceController {
 		newsSource.setModifier(modifier);
 		newsSource.setModify_time(modify_time);
 		try {
-			file.transferTo(new File(
-					"C:\\Users\\Jason\\eclipse-workspace\\INJ\\src\\main\\resources\\static\\images\\" + file_name));
+			file.transferTo(new File(url + file_name));
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -131,7 +139,7 @@ public class NewsSourceController {
 	@PostMapping(value = "search")
 	public String search(@RequestParam(name = "keywords") String keywords, @RequestParam(name = "active") String active,
 			Model model) throws Exception {
-		if (active == "1" || active == "0") {
+		if (active.equals("1") || active.equals("0")) {
 			List n1 = newsSourceImpl.findByKeywords(keywords, active);
 			model.addAttribute("newsSource", n1);
 		} else {

@@ -19,7 +19,7 @@ public class NewsSourceImpl implements NewsSourceDao {
 
 	@Override
 	public void add(NewsSource newsSource) throws Exception {
-		String sql = "INSERT INTO church.news_source (id, name, file_name, active, creator, create_time, modifier, modify_time)"
+		String sql = "INSERT INTO news_source (id, name, file_name, active, creator, create_time, modifier, modify_time)"
 				+ " VALUES (?,?,?,?,?,?,?,?)";
 
 		String id = newsSource.getId(), name = newsSource.getName(), file_name = newsSource.getFile_name(),
@@ -31,7 +31,7 @@ public class NewsSourceImpl implements NewsSourceDao {
 
 	@Override
 	public void delete(String id) throws Exception {
-		String sql = "delete from church.news_source where id = ?";
+		String sql = "delete from news_source where id = ?";
 		jdbcTemplate.update(sql, id);
 	}
 
@@ -47,28 +47,28 @@ public class NewsSourceImpl implements NewsSourceDao {
 
 	@Override
 	public List select(Model model) throws Exception {
-		String sql = "SELECT * FROM church.news_source";
+		String sql = "SELECT * FROM news_source";
 		List newsSourceList = jdbcTemplate.queryForList(sql);
 		return newsSourceList;
 	}
 
 	@Override
 	public List findById(String id) {
-		String sql = "SELECT * FROM church.news_source where id=?";
+		String sql = "SELECT * FROM news_source where id=?";
 		List newsSourceList = jdbcTemplate.queryForList(sql, id);
 		return newsSourceList;
 	}
 
 	@Override
 	public List findByKeywords(String keywords, String active) throws Exception {
-		String sql = "SELECT * FROM church.news_source where (name LIKE ?) OR (active=?)";
+		String sql = "SELECT * FROM news_source where (name LIKE ?) AND (active=?)";
 		String kw = "%" + keywords + "%";
 		List newsSourceList = jdbcTemplate.queryForList(sql, kw, active);
 		return newsSourceList;
 	}
 
 	public List findByKeywords(String keywords) throws Exception {
-		String sql = "SELECT * FROM church.news_source where name LIKE ?";
+		String sql = "SELECT * FROM news_source where name LIKE ?";
 		String kw = "%" + keywords + "%";
 		List newsSourceList = jdbcTemplate.queryForList(sql, kw);
 		return newsSourceList;

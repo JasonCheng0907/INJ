@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -124,16 +125,13 @@ public class NewsController {
 	}
 
 	@PostMapping(value = "search")
-	public String search(@RequestParam(name = "keywords") String keywords, @RequestParam(name = "active") String active,
-			Model model) throws Exception {
-		if (active.equals("1") || active.equals("0")) {
-			// List n1 = newsImpl.findByKeywords(keywords, active);
-			// model.addAttribute("newsSource", n1);
-		} else {
-			// List n2 = newsImpl.findByKeywords(keywords);
-			// model.addAttribute("newsSource", n2);
-		}
-		return "/admin/newsSource/list";
+	public String search(@RequestParam(name = "keywords") String keywords,
+			@RequestParam(name = "newsSource") String newsSource, @RequestParam(name = "newsType") String newsType,
+			@RequestParam("start_time") Date start_time, @RequestParam("end_time") Date end_time, Model model)
+			throws Exception {
+
+		model.addAttribute("keywords", keywords);
+		return "/admin/news/list";
 	}
 
 }

@@ -146,6 +146,7 @@ public class NewsSourceController {
 			List n2 = newsSourceImpl.findByKeywords(keywords);
 			model.addAttribute("newsSource", n2);
 		}
+		model.addAttribute("keywords", keywords);
 		return "/admin/newsSource/list";
 	}
 }

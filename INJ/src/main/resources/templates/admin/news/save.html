@@ -285,7 +285,7 @@ function MM_swapImage() { //v3.0
                         <td><table width="100%" border="1" cellspacing="0" cellpadding="0">
                           <tr>
                             <td width="30%">標題</td>
-                            <td width="70%"><input name="Input" type="text"></td>
+                            <td width="70%"><input required name="name" type="text"></td>
                           </tr>
                           <tr>
                             <td><p>內容</p>                              </td>
@@ -293,27 +293,27 @@ function MM_swapImage() { //v3.0
                           </tr>
                           <tr>
                             <td>記者</td>
-                            <td><input name="Input6" type="text"></td>
+                            <td><input required name="Input6" type="text"></td>
                           </tr>
                           <tr>
                             <td>報導地點</td>
-                            <td><select name="select3">
+                            <td><select required name="select3">
                               <option>點選縣市</option>
                                                         </select></td>
                           </tr>
                           <tr>
                             <td>日期</td>
-                            <td><input name="Input2" type="text"></td>
+                            <td><input required name="Input2" type="text"></td>
                           </tr>
                           <tr>
                             <td>資料來源</td>
-                            <td><select name="select">
+                            <td><select required name="select">
                               <option>醒報</option>
                             </select></td>
                           </tr>
                           <tr>
                             <td>選擇分類</td>
-                            <td><select name="select2">
+                            <td><select required name="select2">
                               <option>報導</option>
                               <option>活動</option>
                                                         </select></td>
@@ -321,8 +321,7 @@ function MM_swapImage() { //v3.0
                           <tr>
                             <td height="30">顯示為頭條</td>
                             <td><span class="style2">
-                              <input type=radio 
-      value=1 name=MD_STATUS>
+                              <input type=radio  value=1 name=MD_STATUS>
                             </span>是<span class="style2">
                             <input type=radio checked value=0 name=MD_STATUS>
                             </span> 否</td>
@@ -332,23 +331,23 @@ function MM_swapImage() { //v3.0
                             <td><span class="style2">
                               <input type=radio checked value=0 name=MD_STATUS>
                             </span>是 <span class="style2">
-                            <input type=radio 
-      value=1 name=MD_STATUS>
+                            <input type=radio value=1 name=MD_STATUS>
                             </span>否</td>
                           </tr>
                           <tr>
                             <td>上下架日期</td>
-                            <td><input name="Input4" type="text"> 
+                            <td><input required name="Input4" type="text"> 
                               ~
-                              <input name="Input5" type="text"></td>
+                              <input required name="Input5" type="text"></td>
                           </tr>
 
                           <tr>
                             <td colspan="2"><div align="center">
                               <span class="tLeft">
-                              <input name="Submit31922" type="submit" onClick="MM_goToURL('parent','list');return document.MM_returnValue" value="儲存資料">
-                              </span><span class="tLeft">
-                              <input name="Submit" type="submit" onClick="MM_goToURL('parent','list');return document.MM_returnValue" value="取消">
+                              <input type="submit" name="save" value="儲存"/>
+                              </span>
+                              <span class="tLeft">
+                              <input type="submit" name="cancel" value="取消"/>
                               </span></div></td>
                             </tr>
                         </table></td>

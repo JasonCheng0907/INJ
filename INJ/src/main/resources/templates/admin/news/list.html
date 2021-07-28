@@ -284,13 +284,13 @@ function MM_swapImage() { //v3.0
                           <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                               <td width="10%">標題 </td>
-                              <td width="38%"><input name="Input" type="text"></td>
+                              <td width="38%"><input name="keywords" type="text" th:value="${keywords}"></td>
                               <td width="52%">&nbsp;</td>
                             </tr>
                             <tr>
                               <td>資料來源</td>
-                              <td><select name="select">
-                                <option selected>全部</option>
+                              <td><select name="newsSource">
+                                <option selected value="1">全部</option>
                                 <option value="12806188bf90000007ec">醒報</option>
                                 <option value="127091ffe8e00000119a">國度復興報</option>
                                 <option value="127092024760000024f4">論壇e報</option>
@@ -299,8 +299,8 @@ function MM_swapImage() { //v3.0
                             </tr>
                             <tr>
                               <td>新聞分類</td>
-                              <td><select name="select2">
-                                <option selected>全部</option>
+                              <td><select name="newsType">
+                                <option selected value="1">全部</option>
                                 <option value="12722235646000008b3e">新聞報導</option>
                                 <option value="12722237f4a000009564">熱門活動</option>
                               </select></td>

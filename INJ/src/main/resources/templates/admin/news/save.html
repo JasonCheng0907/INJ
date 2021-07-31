@@ -282,63 +282,83 @@ function MM_swapImage() { //v3.0
                         <td>&nbsp;</td>
                       </tr>
                       <tr>
-                        <td><table width="100%" border="1" cellspacing="0" cellpadding="0">
+                        <td><form th:action="@{save}" method="post">
+                        <table width="100%" border="1" cellspacing="0" cellpadding="0">
                           <tr>
                             <td width="30%">標題</td>
-                            <td width="70%"><input required name="name" type="text"></td>
+                            <td width="70%"><input required name="title" type="text"></td>
                           </tr>
                           <tr>
                             <td><p>內容</p>                              </td>
-                            <td><img src="/images/html.png" width="500" height="180"></td>
+                            <td ><textarea name="content" rows="7" cols="50"></textarea>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>上傳圖檔(建議大小:160*120)<br>(限定BMP、JPG、PNG格式)</td>
+                            <td><input name="file" type="file" accept="image/BMP, image/jpeg, image/png" onchange="loadFile(event)">
+                              <img id="output" />
+                              <script>
+								  var loadFile = function(event) {
+								    var output = document.getElementById('output');
+								    output.src = URL.createObjectURL(event.target.files[0]);
+								    output.onload = function() {
+								      URL.revokeObjectURL(output.src) // free memory
+								    }
+								  };
+								</script>
+							</td>
                           </tr>
                           <tr>
                             <td>記者</td>
-                            <td><input required name="Input6" type="text"></td>
+                            <td><input required name="reporter" type="text"></td>
                           </tr>
                           <tr>
                             <td>報導地點</td>
-                            <td><select required name="select3">
+                            <td><select required name="city">
                               <option>點選縣市</option>
-                                                        </select></td>
+                              <option  value="1">台北市</option>
+                           </select></td>
                           </tr>
                           <tr>
                             <td>日期</td>
-                            <td><input required name="Input2" type="text"></td>
+                            <td><input required name="report_time" type="date" pattern="yyyy-MM-dd"></td>
                           </tr>
                           <tr>
                             <td>資料來源</td>
-                            <td><select required name="select">
-                              <option>醒報</option>
+                            <td><select required name="news_source">
+                              <option value="12806188bf90000007ec">醒報</option>
+                              <option value="127091ffe8e00000119a">國度復興報</option>
+                              <option value="127092024760000024f4">論壇e報</option>
                             </select></td>
                           </tr>
                           <tr>
                             <td>選擇分類</td>
-                            <td><select required name="select2">
-                              <option>報導</option>
-                              <option>活動</option>
-                                                        </select></td>
+                            <td><select required name="category_id">
+                              <option value="12722235646000008b3e">新聞報導</option>
+                              <option value="12722237f4a000009564">熱門活動</option>
+                            </select></td>
                           </tr>
                           <tr>
                             <td height="30">顯示為頭條</td>
                             <td><span class="style2">
-                              <input type=radio  value=1 name=MD_STATUS>
+                              <input type=radio  value=1 name="headline">
                             </span>是<span class="style2">
-                            <input type=radio checked value=0 name=MD_STATUS>
+                            <input type=radio checked value=0 name="headline">
                             </span> 否</td>
                           </tr>
                           <tr>
                             <td>上架</td>
                             <td><span class="style2">
-                              <input type=radio checked value=0 name=MD_STATUS>
+                              <input type=radio checked value=0 name="active">
                             </span>是 <span class="style2">
-                            <input type=radio value=1 name=MD_STATUS>
+                            <input type=radio value=1 name="active">
                             </span>否</td>
                           </tr>
                           <tr>
                             <td>上下架日期</td>
-                            <td><input required name="Input4" type="text"> 
+                            <td><input required name="start_time" type="date" pattern="yyyy-MM-dd"> 
                               ~
-                              <input required name="Input5" type="text"></td>
+                              <input required name="end_time" type="date" pattern="yyyy-MM-dd"></td>
                           </tr>
 
                           <tr>
@@ -350,7 +370,7 @@ function MM_swapImage() { //v3.0
                               <input type="submit" name="cancel" value="取消"/>
                               </span></div></td>
                             </tr>
-                        </table></td>
+                        </table></form></td>
                       </tr>
                   </table></td>
                   <td background="images/07.gif">&nbsp;</td>

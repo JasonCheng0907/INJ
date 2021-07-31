@@ -92,17 +92,36 @@ public class NewsController {
 
 	@PostMapping(value = "save")
 	@ResponseBody
-	public String save(@RequestParam("id") String id, @RequestParam("name") String name,
-			@RequestParam("file") MultipartFile file, @RequestParam("active") String active, HttpServletRequest request)
-			throws Exception {
+	public String save(@RequestParam("title") String title, @RequestParam("content") String content,
+			@RequestParam("file") MultipartFile file, @RequestParam("reporter") String reporter,
+			@RequestParam("city") String city, @RequestParam("report_time") Date report_time,
+			@RequestParam("news_source") String news_source, @RequestParam("category_id") String category_id,
+			@RequestParam("headline") String headline, @RequestParam("active") String active,
+			@RequestParam("start_time") Date start_time, @RequestParam("end_time") Date end_time) throws Exception {
 		News news = new News();
+		String id = shortUUID();
 		String file_name = id + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 		String modifier = "mdbc";
+		Timestamp rt = new Timestamp(report_time.getTime());
+		Timestamp st = new Timestamp(start_time.getTime());
+		Timestamp et = new Timestamp(end_time.getTime());
 		Timestamp modify_time = new Timestamp(System.currentTimeMillis());
 		news.setId(id);
-		// news.setName(name);
+		news.setCategory_id(category_id);
+		news.setTitle(title);
+		news.setContent(content);
+		news.setReporter(reporter);
+		news.setCity(city);
+		news.setReport_time(rt);
+		news.setNews_source(news_source);
+		news.setHeadline(headline);
 		news.setFile_name(file_name);
 		news.setActive(active);
+		news.setStart_time(st);
+		news.setEnd_time(et);
+		news.setForever("0");
+		news.setCreator(modifier);
+		news.setCreate_time(modify_time);
 		news.setModifier(modifier);
 		news.setModify_time(modify_time);
 		try {
@@ -113,8 +132,8 @@ public class NewsController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		newsImpl.update(news);
-		return "編輯成功";
+		newsImpl.add(news);
+		return "新增成功";
 	}
 
 	@GetMapping(value = "deleteNews")

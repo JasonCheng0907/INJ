@@ -28,6 +28,9 @@ public interface NewsSourceDao {
 	// 以id查詢資料
 	List findById(String id) throws Exception;
 
-	// 以關鍵字搜尋
+	// 以關鍵字搜尋(含狀態)
 	List findByKeywords(String keywords, String active) throws Exception;
+
+	// 以關鍵字搜尋
+	List findByKeywords(String keywords) throws Exception;
 }

@@ -1,5 +1,6 @@
 package com.example.INJ.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.ui.Model;
@@ -27,4 +28,12 @@ public interface NewsDao {
 
 	// 以id查詢資料
 	List findById(String id) throws Exception;
+
+	// 以關鍵字搜尋(含狀態)
+	List findByKeywords(String keywords, String active, String news_source, String category_id, Timestamp start_time,
+			Timestamp end_time) throws Exception;
+
+	// 以關鍵字搜尋
+	List findByKeywords(String keywords, String news_source, String category_id, Timestamp start_time,
+			Timestamp end_time) throws Exception;
 }

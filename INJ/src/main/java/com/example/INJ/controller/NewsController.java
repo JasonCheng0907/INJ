@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -99,6 +101,7 @@ public class NewsController {
 			@RequestParam("headline") String headline, @RequestParam("active") String active,
 			@RequestParam("start_time") Date start_time, @RequestParam("end_time") Date end_time) throws Exception {
 		News news = new News();
+		System.out.println(content);
 		String id = shortUUID();
 		String file_name = id + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 		String modifier = "mdbc";
@@ -144,12 +147,25 @@ public class NewsController {
 	}
 
 	@PostMapping(value = "search")
-	public String search(@RequestParam(name = "keywords") String keywords,
-			@RequestParam(name = "newsSource") String newsSource, @RequestParam(name = "newsType") String newsType,
-			@RequestParam("start_time") Date start_time, @RequestParam("end_time") Date end_time, Model model)
-			throws Exception {
-
+	public String search(@RequestParam(name = "keywords") String keywords, @RequestParam(name = "active") String active,
+			@RequestParam(name = "news_source") String news_source,
+			@RequestParam(name = "category_id") String category_id, @RequestParam("start_time") Date start_time,
+			@RequestParam("end_time") Date end_time, Model model) throws Exception {
+		Timestamp st = new Timestamp(start_time.getTime());
+		Timestamp et = new Timestamp(end_time.getTime());
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		String sst = df.format(start_time);
+		String set = df.format(end_time);
+		if (active.equals("0")) {
+			List n1 = newsImpl.findByKeywords(keywords, news_source, category_id, st, et);
+			model.addAttribute("news", n1);
+		} else {
+			List n2 = newsImpl.findByKeywords(keywords, active, news_source, category_id, st, et);
+			model.addAttribute("news", n2);
+		}
 		model.addAttribute("keywords", keywords);
+		model.addAttribute("start_time", sst);
+		model.addAttribute("end_time", set);
 		return "/admin/news/list";
 	}
 

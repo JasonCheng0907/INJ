@@ -282,7 +282,7 @@ function MM_swapImage() { //v3.0
                         <td>&nbsp;</td>
                       </tr>
                       <tr>
-                        <td><form th:action="@{save}" method="post">
+                        <td><form th:action="@{save}" method="post" th:object="${news}" id="myform" enctype="multipart/form-data">
                         <table width="100%" border="1" cellspacing="0" cellpadding="0">
                           <tr>
                             <td width="30%">標題</td>
@@ -290,7 +290,7 @@ function MM_swapImage() { //v3.0
                           </tr>
                           <tr>
                             <td><p>內容</p>                              </td>
-                            <td ><textarea name="content" rows="7" cols="50"></textarea>
+                            <td><textarea name="content" rows="7" cols="50" form="myform"></textarea>
                             </td>
                           </tr>
                           <tr>
@@ -321,7 +321,7 @@ function MM_swapImage() { //v3.0
                           </tr>
                           <tr>
                             <td>日期</td>
-                            <td><input required name="report_time" type="date" pattern="yyyy-MM-dd"></td>
+                            <td><input required name="report_time" type="text"></td>
                           </tr>
                           <tr>
                             <td>資料來源</td>
@@ -356,9 +356,9 @@ function MM_swapImage() { //v3.0
                           </tr>
                           <tr>
                             <td>上下架日期</td>
-                            <td><input required name="start_time" type="date" pattern="yyyy-MM-dd"> 
+                            <td><input required name="start_time" type="text"> 
                               ~
-                              <input required name="end_time" type="date" pattern="yyyy-MM-dd"></td>
+                              <input required name="end_time" type="text"></td>
                           </tr>
 
                           <tr>

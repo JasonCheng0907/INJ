@@ -68,9 +68,28 @@ public class NewsImpl implements NewsDao {
 
 	@Override
 	public List findById(String id) throws Exception {
-		String sql = "SELECT * FROM news where id=?";
+		String sql = "SELECT * FROM news where id = ?";
 		List newsList = jdbcTemplate.queryForList(sql, id);
 		return newsList;
 	}
 
+	@Override
+	public List findByKeywords(String keywords, String active, String news_source, String category_id,
+			Timestamp start_time, Timestamp end_time) throws Exception {
+		String sql = "SELECT * FROM news where (title LIKE ?) AND (active=?) AND (news_source=?) AND (category_id=?) "
+				+ "AND (start_time>=?) AND (end_time<=?)";
+		String kw = "%" + keywords + "%";
+		List newsList = jdbcTemplate.queryForList(sql, kw, active, news_source, category_id, start_time, end_time);
+		return newsList;
+	}
+
+	@Override
+	public List findByKeywords(String keywords, String news_source, String category_id, Timestamp start_time,
+			Timestamp end_time) throws Exception {
+		String sql = "SELECT * FROM news where (title LIKE ?) AND (news_source=?) AND (category_id=?) "
+				+ "AND (start_time>=?) AND (end_time<=?)";
+		String kw = "%" + keywords + "%";
+		List newsList = jdbcTemplate.queryForList(sql, kw, news_source, category_id, start_time, end_time);
+		return newsList;
+	}
 }

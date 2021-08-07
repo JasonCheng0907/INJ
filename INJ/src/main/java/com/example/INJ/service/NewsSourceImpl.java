@@ -67,6 +67,7 @@ public class NewsSourceImpl implements NewsSourceDao {
 		return newsSourceList;
 	}
 
+	@Override
 	public List findByKeywords(String keywords) throws Exception {
 		String sql = "SELECT * FROM news_source where name LIKE ?";
 		String kw = "%" + keywords + "%";

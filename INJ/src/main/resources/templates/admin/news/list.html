@@ -280,7 +280,7 @@ function MM_swapImage() { //v3.0
                       </tr>
                       <tr>
                         <td><p>&nbsp;</p>
-                          <form th:action="@{search}" method="post">
+                          <form th:action="@{search}" method="post" >
                           <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                               <td width="10%">標題 </td>
@@ -290,25 +290,25 @@ function MM_swapImage() { //v3.0
                             <tr>
                               <td>狀態</td>
                               <td><select name="active">
-                                <option value="0">全部</option>
-                                <option value="1">啟用</option>
-                                <option value="2">停用</option>
+                                <option value="2">全部</option>
+                                <option th:each="n : ${news}" th:selected="${n.active eq '1'}" th:value="1" th:text="啟用"></option>
+                                <option th:each="n : ${news}" th:selected="${n.active eq '0'}" th:value="0" th:text="停用"></option>
                               </select></td>
                             </tr>
                             <tr>
                               <td>資料來源</td>
                               <td><select name="news_source">
-                                <option value="12806188bf90000007ec">醒報</option>
-                                <option value="127091ffe8e00000119a">國度復興報</option>
-                                <option value="127092024760000024f4">論壇e報</option>
+                                <option th:each="n : ${news}" th:selected="${n.news_source eq '12806188bf90000007ec'}" th:value="12806188bf90000007ec" th:text="醒報"></option>
+                                <option th:each="n : ${news}" th:selected="${n.news_source eq '127091ffe8e00000119a'}" th:value="127091ffe8e00000119a" th:text="國度復興報"></option>
+                                <option th:each="n : ${news}" th:selected="${n.news_source eq '127092024760000024f4'}" th:value="127092024760000024f4" th:text="論壇e報"></option>
                               </select></td>
                               <td>&nbsp;</td>
                             </tr>
                             <tr>
                               <td>新聞分類</td>
                               <td><select name="category_id">
-                                <option value="12722235646000008b3e">新聞報導</option>
-                                <option value="12722237f4a000009564">熱門活動</option>
+                                <option th:each="n : ${news}" th:selected="${n.category_id eq '12722235646000008b3e'}" th:value="12722235646000008b3e" th:text="新聞報導"></option>
+                                <option th:each="n : ${news}" th:selected="${n.category_id eq '12722237f4a000009564'}" th:value="12722237f4a000009564" th:text="熱門活動"></option>
                               </select></td>
                               <td>&nbsp;</td>
                             </tr>

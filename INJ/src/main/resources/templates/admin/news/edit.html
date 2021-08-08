@@ -276,7 +276,7 @@ function MM_swapImage() { //v3.0
                   <td background="/images/03.gif">&nbsp;</td>
                   <td><table width="100%" border="0" align="center" cellpadding="5" cellspacing="0">
                       <tr>
-                        <td><div align="left" class="black12">INJ網站管理介面>新聞管理-<strong>新增新聞</strong></div></td>
+                        <td><div align="left" class="black12">INJ網站管理介面>新聞管理-<strong>編輯新聞</strong></div></td>
                       </tr>
                       <tr>
                         <td>&nbsp;</td>
@@ -318,7 +318,7 @@ function MM_swapImage() { //v3.0
                             <td>報導地點</td>
                             <td><select required name="city">
                               <option>點選縣市</option>
-                              <option  value="1">台北市</option>
+                              <option th:selected="${n.city eq '1'}" th:value="1" th:text="台北市"></option>
                            </select></td>
                           </tr>
                           <tr>
@@ -328,17 +328,17 @@ function MM_swapImage() { //v3.0
                           </tr>
                           <tr>
                             <td>資料來源</td>
-                            <td><select required name="news_source" th:selected="${n.news_source='127092024760000024f4'}">
-                              <option th:value="12806188bf90000007ec" th:text="醒報"></option>
-                              <option th:value="127091ffe8e00000119a" th:text="國度復興報"></option>
-                              <option th:value="127092024760000024f4" th:text="論壇e報"></option>
+                            <td><select required name="news_source">
+                              <option th:selected="${n.news_source eq '12806188bf90000007ec'}" th:value="12806188bf90000007ec" th:text="醒報"></option>
+                              <option th:selected="${n.news_source eq '127091ffe8e00000119a'}" th:value="127091ffe8e00000119a" th:text="國度復興報"></option>
+                              <option th:selected="${n.news_source eq '127092024760000024f4'}" th:value="127092024760000024f4" th:text="論壇e報"></option>
                             </select></td>
                           </tr>
                           <tr>
                             <td>選擇分類</td>
                             <td><select required name="category_id">
-                              <option th:value="12722235646000008b3e" th:text="新聞報導"></option>
-                              <option th:value="12722237f4a000009564" th:text="熱門活動"></option>
+                              <option th:selected="${n.category_id eq '12722235646000008b3e'}" th:value="12722235646000008b3e" th:text="新聞報導"></option>
+                              <option th:selected="${n.category_id eq '12722237f4a000009564'}" th:value="12722237f4a000009564" th:text="熱門活動"></option>
                             </select></td>
                           </tr>
                           <tr>

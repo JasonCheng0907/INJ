@@ -60,8 +60,8 @@ public class NewsImpl implements NewsDao {
 
 	@Override
 	public List select(Model model) throws Exception {
-		String sql = "SELECT news.*,category.name AS category_name,news_source.name AS news_source_name FROM news INNER JOIN "
-				+ "category ON news.category_id = category.id INNER JOIN news_source ON news.news_source = news_source.id";
+		String sql = "SELECT n.*, ns.name AS news_source_name, c.name AS category_name FROM news n INNER JOIN "
+				+ "category c ON n.category_id = c.id INNER JOIN news_source ns ON n.news_source = ns.id";
 		List newsList = jdbcTemplate.queryForList(sql);
 		return newsList;
 	}
@@ -76,8 +76,10 @@ public class NewsImpl implements NewsDao {
 	@Override
 	public List findByKeywords(String keywords, String active, String news_source, String category_id,
 			Timestamp start_time, Timestamp end_time) throws Exception {
-		String sql = "SELECT * FROM news where (title LIKE ?) AND (active=?) AND (news_source=?) AND (category_id=?) "
-				+ "AND (start_time>=?) AND (end_time<=?)";
+		String sql = "SELECT n.*, ns.name AS news_source_name, c.name AS category_name FROM news n "
+				+ "INNER JOIN news_source ns ON n.news_source = ns.id INNER JOIN category c ON n.category_id = c.id "
+				+ "where (n.title LIKE ?) AND (n.active=?) AND (n.news_source=?) AND (n.category_id=?) "
+				+ "AND (n.start_time>=?) AND (n.end_time<=?)";
 		String kw = "%" + keywords + "%";
 		List newsList = jdbcTemplate.queryForList(sql, kw, active, news_source, category_id, start_time, end_time);
 		return newsList;
@@ -86,8 +88,10 @@ public class NewsImpl implements NewsDao {
 	@Override
 	public List findByKeywords(String keywords, String news_source, String category_id, Timestamp start_time,
 			Timestamp end_time) throws Exception {
-		String sql = "SELECT * FROM news where (title LIKE ?) AND (news_source=?) AND (category_id=?) "
-				+ "AND (start_time>=?) AND (end_time<=?)";
+		String sql = "SELECT n.*, ns.name AS news_source_name, c.name AS category_name FROM news n "
+				+ "INNER JOIN news_source ns ON n.news_source = ns.id INNER JOIN category c ON n.category_id = c.id "
+				+ "where (n.title LIKE ?) AND (n.news_source=?) AND (n.category_id=?) "
+				+ "AND (n.start_time>=?) AND (n.end_time<=?)";
 		String kw = "%" + keywords + "%";
 		List newsList = jdbcTemplate.queryForList(sql, kw, news_source, category_id, start_time, end_time);
 		return newsList;

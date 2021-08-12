@@ -11,6 +11,10 @@ import org.springframework.ui.Model;
 import com.example.INJ.dao.NewsSourceDao;
 import com.example.INJ.model.NewsSource;
 
+/**
+ * @author jason
+ * @version 建立時間:2021年8月12日 下午4:44:33
+ */
 @Service
 public class NewsSourceImpl implements NewsSourceDao {
 
